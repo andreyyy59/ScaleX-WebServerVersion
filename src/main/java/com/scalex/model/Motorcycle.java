@@ -26,10 +26,10 @@ public class Motorcycle {
     
     @DecimalMin("0.0")
     @Column(name = "engine_size")
-    private BigDecimal engineSize;
+    private int engineSize;
     
     @DecimalMin("0.0")
-    private BigDecimal power;
+    private int power;
     
     @DecimalMin("0.0")
     private BigDecimal torque;
@@ -109,20 +109,20 @@ public class Motorcycle {
         this.category = category;
     }
     
-    public BigDecimal getEngineSize() {
+    public int getEngineSize() {
         return engineSize;
     }
     
-    public void setEngineSize(BigDecimal engineSize) {
-        this.engineSize = engineSize;
+    public void setEngineSize(int i) {
+        this.engineSize = i;
     }
     
-    public BigDecimal getPower() {
+    public int getPower() {
         return power;
     }
     
-    public void setPower(BigDecimal power) {
-        this.power = power;
+    public void setPower(int i) {
+        this.power = i;
     }
     
     public BigDecimal getTorque() {

@@ -8,9 +8,9 @@ public class MotorcycleDTO {
     private String model;
     private Integer year;
     private String category;
-    private BigDecimal engineSize;
-    private BigDecimal power;
-    private BigDecimal torque;
+    private Integer engineSize;  // Cambiado a Integer para coincidir con la entidad
+    private Integer power;       // Cambiado a Integer para coincidir con la entidad
+    private String torque;
     private BigDecimal weight;
     private BigDecimal seatHeight;
     private BigDecimal fuelCapacity;
@@ -18,11 +18,9 @@ public class MotorcycleDTO {
     private BigDecimal length;
     private BigDecimal width;
     private BigDecimal height;
-    
-    // Para comparación
     private boolean isFavorite;
     
-    // Constructors
+    // Constructores
     public MotorcycleDTO() {
     }
     
@@ -75,27 +73,24 @@ public class MotorcycleDTO {
         this.category = category;
     }
     
-    public BigDecimal getEngineSize() {
+    public Integer getEngineSize() {
         return engineSize;
     }
     
-    public void setEngineSize(BigDecimal engineSize) {
-        this.engineSize = engineSize;
-    }
     
-    public BigDecimal getPower() {
+    public Integer getPower() {
         return power;
     }
     
-    public void setPower(BigDecimal power) {
+    public void setPower(Integer power) {
         this.power = power;
     }
     
-    public BigDecimal getTorque() {
+    public String getTorque() {
         return torque;
     }
     
-    public void setTorque(BigDecimal torque) {
+    public void setTorque(String torque) {
         this.torque = torque;
     }
     
@@ -183,7 +178,7 @@ public class MotorcycleDTO {
                 ", category='" + category + '\'' +
                 ", engineSize=" + engineSize +
                 ", power=" + power +
-                ", torque=" + torque +
+                ", torque='" + torque + '\'' +
                 ", weight=" + weight +
                 ", seatHeight=" + seatHeight +
                 ", fuelCapacity=" + fuelCapacity +
@@ -198,9 +193,9 @@ public class MotorcycleDTO {
         private String model;
         private Integer year;
         private String category;
-        private BigDecimal engineSize;
-        private BigDecimal power;
-        private BigDecimal torque;
+        private int engineSize;
+        private Integer power;
+        private String torque;
         private BigDecimal weight;
         private BigDecimal seatHeight;
         private BigDecimal fuelCapacity;
@@ -235,17 +230,17 @@ public class MotorcycleDTO {
             return this;
         }
         
-        public Builder engineSize(BigDecimal engineSize) {
-            this.engineSize = engineSize;
+        public Builder engineSize(int i) {
+            this.engineSize = i;
             return this;
         }
         
-        public Builder power(BigDecimal power) {
+        public Builder power(Integer power) {
             this.power = power;
             return this;
         }
         
-        public Builder torque(BigDecimal torque) {
+        public Builder torque(String torque) {
             this.torque = torque;
             return this;
         }
@@ -297,7 +292,6 @@ public class MotorcycleDTO {
             dto.setModel(this.model);
             dto.setYear(this.year);
             dto.setCategory(this.category);
-            dto.setEngineSize(this.engineSize);
             dto.setPower(this.power);
             dto.setTorque(this.torque);
             dto.setWeight(this.weight);
