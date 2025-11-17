@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparar Motos - ScaleX</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>COMPARAR MOTOS</h1>
+            <div class="divider"></div>
+            <p>Compara especificaciones y características de diferentes motos</p>
+        </div>
+
+        <div class="compare-selector">
+            <h2>Selecciona las motos a comparar</h2>
+            <form id="compareForm">
+                <div class="selector-grid">
+                    <div class="selector-item">
+                        <label><i class="fas fa-motorcycle"></i> Moto 1</label>
+                        <select id="moto1" class="form-control">
+                            <option value="">Seleccionar...</option>
+                            <option th:each="moto : ${allMotorcycles}" 
+                                    th:value="${moto.id}" 
+                                    th:text="${moto.make + ' ' + moto.model + ' (' + moto.year + ')'}">
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div class="selector-item">
+                        <label><i class="fas fa-motorcycle"></i> Moto 2</label>
+                        <select id="moto2" class="form-control">
+                            <option value="">Seleccionar...</option>
+                            <option th:each="moto : ${allMotorcycles}" 
+                                    th:value="${moto.id}" 
+                                    th:text="${moto.make + ' ' + moto.model + ' (' + moto.year + ')'}">
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div class="selector-item">
+                        <button type="button" onclick="compareMotorcycles()" class="btn-compare-now">
+                            <i class="fas fa-balance-scale"></i> Comparar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Resultado de la comparación -->
+        <div class="comparison-result" th:if="${motorcycles != null and !motorcycles.isEmpty()}">
+            <h2>Resultado de la Comparación</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th th:each="moto : ${motorcycles}" th:text="${moto.make + ' ' + moto.model}"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Imagen</td>
+                        <td th:each="moto : ${motorcycles}">
+                            <img th:src="${moto.imageUrl}" class="motorcycle-image-compare" 
+                                 th:alt="${moto.make + ' ' + moto.model}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Año</td>
+                        <td th:each="moto : ${motorcycles}" th:text="${moto.year}"></td>
+                    </tr>
+                    <tr>
+                        <td>Categoría</td>
+                        <td th:each="moto : ${motorcycles}" th:text="${moto.category}"></td>
+                    </tr>
+                    <tr>
+                        <td>Cilindrada</td>
+                        <td th:each="moto : ${motorcycles}" th:text="${moto.engineSize + ' cc'}"></td>
+                    </tr>
+                    <tr>
+                        <td>Potencia</td>
+                        <td th:each="moto : ${motorcycles}" th:text="${moto.power + ' HP'}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="empty-state" th:if="${motorcycles == null or motorcycles.isEmpty()}">
+            <i class="fas fa-balance-scale"></i>
+            <h2>Selecciona motos para comparar</h2>
+            <p>Elige dos o más motos de los selectores de arriba para ver una comparación detallada</p>
+        </div>
+    </div>
+
+    <script>
+        function compareMotorcycles() {
+            const moto1 = document.getElementById('moto1').value;
+            const moto2 = document.getElementById('moto2').value;
+            
+            if (!moto1 || !moto2) {
+                alert('Por favor selecciona al menos dos motos para comparar');
+                return;
+            }
+            
+            const ids = [moto1, moto2].filter(id => id).join(',');
+            window.location.href = `/compare?ids=${ids}`;
+        }
+    </script>
+</body>
+</html>
