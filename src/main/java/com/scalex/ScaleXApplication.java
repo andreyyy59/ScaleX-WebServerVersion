@@ -34,7 +34,7 @@ public class ScaleXApplication {
     @Bean
     public CommandLineRunner createTestMotorcycles(MotorcycleRepository motorcycleRepository) {
         return args -> {
-            if (motorcycleRepository.count() == 0) {
+            if (1 == 1) {
                 System.out.println("🏍️ Creando motos de prueba...");
                 
                 // Honda
