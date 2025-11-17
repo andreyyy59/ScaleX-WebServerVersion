@@ -27,6 +27,8 @@ public class ScaleXApplication {
                 user.setPassword(passwordEncoder.encode("admin123"));
                 userRepository.save(user);
                 System.out.println("✅ Usuario de prueba creado: admin / admin123");
+            } else {
+                System.out.println("ℹ️ Usuario admin ya existe");
             }
         };
     }
@@ -34,65 +36,168 @@ public class ScaleXApplication {
     @Bean
     public CommandLineRunner createTestMotorcycles(MotorcycleRepository motorcycleRepository) {
         return args -> {
-            if (1 == 1) {
+            if (motorcycleRepository.count() == 0) {
                 System.out.println("🏍️ Creando motos de prueba...");
                 
-                // Honda
-                createMotorcycle(motorcycleRepository, "Honda", "Access 125", 2023, "Scooter", 125, 8, "access_125.png");
-                createMotorcycle(motorcycleRepository, "Honda", "ADV 350", 2023, "Adventure", 350, 29, "adv350.png");
-                createMotorcycle(motorcycleRepository, "Honda", "Africa Twin", 2023, "Adventure", 1084, 102, "africa_twin.png");
-                createMotorcycle(motorcycleRepository, "Honda", "CB125F", 2023, "Street", 125, 11, "cb125f.png");
-                createMotorcycle(motorcycleRepository, "Honda", "CB150F", 2023, "Street", 150, 17, "cb150f_2022.png");
-                createMotorcycle(motorcycleRepository, "Honda", "CB200X", 2023, "Adventure", 200, 17, "cb200x_2022.png");
-                createMotorcycle(motorcycleRepository, "Honda", "CB1000R", 2023, "Naked", 998, 145, "cb1000r.png");
+                // Motos deportivas
+                Motorcycle m1 = new Motorcycle();
+                m1.setMake("Yamaha");
+                m1.setModel("YZF-R1");
+                m1.setYear(2023);
+                m1.setCategory("Deportiva");
+                m1.setEngineSize(998);
+                m1.setPower(200);
+                m1.setImageUrl("https://via.placeholder.com/400x300/1e3c72/ffffff?text=Yamaha+YZF-R1");
+                motorcycleRepository.save(m1);
                 
-                // Bajaj
-                createMotorcycle(motorcycleRepository, "Bajaj", "Pulsar 150", 2023, "Street", 150, 14, "pulsar_150.png");
-                createMotorcycle(motorcycleRepository, "Bajaj", "Pulsar 220F", 2023, "Street", 220, 20, "pulsar_220f.png");
-                createMotorcycle(motorcycleRepository, "Bajaj", "Dominar 250", 2023, "Sport", 250, 27, "dominar_250.png");
-                createMotorcycle(motorcycleRepository, "Bajaj", "Dominar 400", 2023, "Sport", 400, 40, "dominar_400.png");
-                createMotorcycle(motorcycleRepository, "Bajaj", "CT 100", 2023, "Commuter", 100, 8, "ct_100.png");
+                Motorcycle m2 = new Motorcycle();
+                m2.setMake("Honda");
+                m2.setModel("CBR1000RR");
+                m2.setYear(2023);
+                m2.setCategory("Deportiva");
+                m2.setEngineSize(999);
+                m2.setPower(189);
+                m2.setImageUrl("https://via.placeholder.com/400x300/dc2626/ffffff?text=Honda+CBR1000RR");
+                motorcycleRepository.save(m2);
                 
-                // TVS
-                createMotorcycle(motorcycleRepository, "TVS", "Apache RTR 310", 2023, "Sport", 310, 35, "apache_rr310.png");
-                createMotorcycle(motorcycleRepository, "TVS", "Apache TTR 160", 2023, "Sport", 160, 15, "apache_rtr_160_2022.png");
-                createMotorcycle(motorcycleRepository, "TVS", "Raider 125", 2023, "Sport", 125, 12, "raider_125.png");
-                	
-                // BMW
-                createMotorcycle(motorcycleRepository, "BMW", "C 400 GT", 2023, "Scooter", 350, 34, "c_400_gt.png");
-                createMotorcycle(motorcycleRepository, "BMW", "F 750 GS", 2023, "Adventure", 750, 77, "f_750_gs_2022.png");
-                createMotorcycle(motorcycleRepository, "BMW", "G 310 R", 2023, "Naked", 313, 34, "g_310_r_2022.png");
-                createMotorcycle(motorcycleRepository, "BMW", "K 1600 B", 2023, "Touring", 1649, 160, "k_1600_b.png");
+                Motorcycle m3 = new Motorcycle();
+                m3.setMake("Kawasaki");
+                m3.setModel("Ninja ZX-10R");
+                m3.setYear(2023);
+                m3.setCategory("Deportiva");
+                m3.setEngineSize(998);
+                m3.setPower(203);
+                m3.setImageUrl("https://via.placeholder.com/400x300/16a34a/ffffff?text=Kawasaki+ZX-10R");
+                motorcycleRepository.save(m3);
                 
-                // Suzuki
-                createMotorcycle(motorcycleRepository, "Suzuki", "Boulevard C50", 2023, "Cruiser", 805, 55, "boulevard_c50.png");
-                createMotorcycle(motorcycleRepository, "Suzuki", "Concours 14", 2023, "Sport Touring", 1352, 160, "concours_14.png");
-                createMotorcycle(motorcycleRepository, "Suzuki", "Gixxer 250 SF", 2023, "Sport", 250, 26, "gixxer_250_sf.png");
-                createMotorcycle(motorcycleRepository, "Suzuki", "GN 125", 2023, "Street", 125, 10, "suzuki_gn_125.png");
+                Motorcycle m4 = new Motorcycle();
+                m4.setMake("Suzuki");
+                m4.setModel("GSX-R1000");
+                m4.setYear(2023);
+                m4.setCategory("Deportiva");
+                m4.setEngineSize(999);
+                m4.setPower(199);
+                m4.setImageUrl("https://via.placeholder.com/400x300/3b82f6/ffffff?text=Suzuki+GSXR1000");
+                motorcycleRepository.save(m4);
                 
-                // Hero
-                createMotorcycle(motorcycleRepository, "Hero", "Hunk 150", 2023, "Street", 150, 14, "hero_hunk_150.png");
+                Motorcycle m5 = new Motorcycle();
+                m5.setMake("Ducati");
+                m5.setModel("Panigale V4");
+                m5.setYear(2023);
+                m5.setCategory("Deportiva");
+                m5.setEngineSize(1103);
+                m5.setPower(214);
+                m5.setImageUrl("https://via.placeholder.com/400x300/dc2626/ffffff?text=Ducati+Panigale+V4");
+                motorcycleRepository.save(m5);
+                
+                // Motos Naked
+                Motorcycle m6 = new Motorcycle();
+                m6.setMake("Yamaha");
+                m6.setModel("MT-09");
+                m6.setYear(2023);
+                m6.setCategory("Naked");
+                m6.setEngineSize(889);
+                m6.setPower(117);
+                m6.setImageUrl("https://via.placeholder.com/400x300/2a5298/ffffff?text=Yamaha+MT-09");
+                motorcycleRepository.save(m6);
+                
+                Motorcycle m7 = new Motorcycle();
+                m7.setMake("Kawasaki");
+                m7.setModel("Z900");
+                m7.setYear(2023);
+                m7.setCategory("Naked");
+                m7.setEngineSize(948);
+                m7.setPower(125);
+                m7.setImageUrl("https://via.placeholder.com/400x300/16a34a/ffffff?text=Kawasaki+Z900");
+                motorcycleRepository.save(m7);
+                
+                Motorcycle m8 = new Motorcycle();
+                m8.setMake("KTM");
+                m8.setModel("890 Duke");
+                m8.setYear(2023);
+                m8.setCategory("Naked");
+                m8.setEngineSize(890);
+                m8.setPower(115);
+                m8.setImageUrl("https://via.placeholder.com/400x300/f97316/ffffff?text=KTM+890+Duke");
+                motorcycleRepository.save(m8);
+                
+                // Motos Adventure
+                Motorcycle m9 = new Motorcycle();
+                m9.setMake("BMW");
+                m9.setModel("R 1250 GS");
+                m9.setYear(2023);
+                m9.setCategory("Adventure");
+                m9.setEngineSize(1254);
+                m9.setPower(136);
+                m9.setImageUrl("https://via.placeholder.com/400x300/3b82f6/ffffff?text=BMW+R1250GS");
+                motorcycleRepository.save(m9);
+                
+                Motorcycle m10 = new Motorcycle();
+                m10.setMake("Honda");
+                m10.setModel("Africa Twin");
+                m10.setYear(2023);
+                m10.setCategory("Adventure");
+                m10.setEngineSize(1084);
+                m10.setPower(102);
+                m10.setImageUrl("https://via.placeholder.com/400x300/dc2626/ffffff?text=Africa+Twin");
+                motorcycleRepository.save(m10);
+                
+                Motorcycle m11 = new Motorcycle();
+                m11.setMake("KTM");
+                m11.setModel("890 Adventure");
+                m11.setYear(2023);
+                m11.setCategory("Adventure");
+                m11.setEngineSize(890);
+                m11.setPower(105);
+                m11.setImageUrl("https://via.placeholder.com/400x300/f97316/ffffff?text=KTM+890+Adventure");
+                motorcycleRepository.save(m11);
+                
+                // Motos Cruiser
+                Motorcycle m12 = new Motorcycle();
+                m12.setMake("Harley-Davidson");
+                m12.setModel("Sportster S");
+                m12.setYear(2023);
+                m12.setCategory("Cruiser");
+                m12.setEngineSize(1252);
+                m12.setPower(121);
+                m12.setImageUrl("https://via.placeholder.com/400x300/111827/ffffff?text=Sportster+S");
+                motorcycleRepository.save(m12);
+                
+                Motorcycle m13 = new Motorcycle();
+                m13.setMake("Indian");
+                m13.setModel("Scout");
+                m13.setYear(2023);
+                m13.setCategory("Cruiser");
+                m13.setEngineSize(1133);
+                m13.setPower(100);
+                m13.setImageUrl("https://via.placeholder.com/400x300/6b7280/ffffff?text=Indian+Scout");
+                motorcycleRepository.save(m13);
+                
+                Motorcycle m14 = new Motorcycle();
+                m14.setMake("Honda");
+                m14.setModel("Rebel 1100");
+                m14.setYear(2023);
+                m14.setCategory("Cruiser");
+                m14.setEngineSize(1084);
+                m14.setPower(87);
+                m14.setImageUrl("https://via.placeholder.com/400x300/dc2626/ffffff?text=Honda+Rebel+1100");
+                motorcycleRepository.save(m14);
+                
+                // Motos Scooter
+                Motorcycle m15 = new Motorcycle();
+                m15.setMake("Yamaha");
+                m15.setModel("TMAX");
+                m15.setYear(2023);
+                m15.setCategory("Scooter");
+                m15.setEngineSize(560);
+                m15.setPower(47);
+                m15.setImageUrl("https://via.placeholder.com/400x300/2a5298/ffffff?text=Yamaha+TMAX");
+                motorcycleRepository.save(m15);
                 
                 System.out.println("✅ " + motorcycleRepository.count() + " motos de prueba creadas");
             } else {
                 System.out.println("ℹ️ Ya existen " + motorcycleRepository.count() + " motos en la BD");
             }
         };
-    }
-    
-    private void createMotorcycle(MotorcycleRepository repository, String make, String model, 
-                                Integer year, String category, Integer engineSize, 
-                                Integer power, String imageName) {
-        // Crear directamente sin verificar duplicados (para simplificar)
-        Motorcycle motorcycle = new Motorcycle();
-        motorcycle.setMake(make);
-        motorcycle.setModel(model);
-        motorcycle.setYear(year);
-        motorcycle.setCategory(category);
-        motorcycle.setEngineSize(engineSize);
-        motorcycle.setPower(power);
-        motorcycle.setImageUrl("images/motorcycles/" + imageName);
-        repository.save(motorcycle);
-        System.out.println("✅ " + make + " " + model + " creada");
     }
 }
