@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeabR - Inicio</title>
+    <link th:href="@{/css/home.css}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <main class="main-content">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>COMPARA ESPECIFICACIONES DE MOTOS</h1>
+                <p>Encuentra la moto perfecta comparando especificaciones, tamaños y características técnicas</p>
+                
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Buscar motos por marca, modelo o categoría...">
+                    <button id="searchBtn" class="btn-search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="motorcycles-section">
+            <div class="container">
+                <h2>Motos Disponibles</h2>
+                
+                <div class="filters">
+                    <select id="categoryFilter">
+                        <option value="">Todas las categorías</option>
+                        <option value="Deportiva">Deportiva</option>
+                        <option value="Naked">Naked</option>
+                        <option value="Adventure">Adventure</option>
+                        <option value="Cruiser">Cruiser</option>
+                        <option value="Scooter">Scooter</option>
+                    </select>
+                    
+                    <select id="makeFilter">
+                        <option value="">Todas las marcas</option>
+                        <option value="Yamaha">Yamaha</option>
+                        <option value="Honda">Honda</option>
+                        <option value="Kawasaki">Kawasaki</option>
+                        <option value="Suzuki">Suzuki</option>
+                        <option value="Ducati">Ducati</option>
+                    </select>
+                </div>
+
+                <div class="motorcycles-grid" id="motorcyclesGrid">
+                    <div th:each="motorcycle : ${motorcycles}" class="motorcycle-card">
+                        <div class="card-image">
+                            <img th:src="${motorcycle.imageUrl}" th:alt="${motorcycle.make + ' ' + motorcycle.model}" 
+                                 onerror="this.src='/images/motorcycles/default.jpg'">
+                            <button class="favorite-btn" th:data-id="${motorcycle.id}">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3 th:text="${motorcycle.make + ' ' + motorcycle.model}"></h3>
+                            <p class="year" th:text="${motorcycle.year}"></p>
+                            <p class="category" th:text="${motorcycle.category}"></p>
+                            <div class="specs">
+                                <span><i class="fas fa-tachometer-alt"></i> <span th:text="${motorcycle.engineSize + ' cc'}"></span></span>
+                                <span><i class="fas fa-horse-head"></i> <span th:text="${motorcycle.power + ' HP'}"></span></span>
+                            </div>
+                            <div class="card-actions">
+                                <a th:href="@{/search/similar(baseMotorcycleId=${motorcycle.id})}" class="btn-secondary">
+                                    Similares
+                                </a>
+                                <button class="btn-compare" th:data-id="${motorcycle.id}">
+                                    Comparar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/search.js}"></script>
+</body>
+</html>

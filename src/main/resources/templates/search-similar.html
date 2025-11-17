@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Similares - ScaleX</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>BUSCAR MOTOS SIMILARES</h1>
+            <div class="divider"></div>
+            <p>Encuentra motos con características similares</p>
+        </div>
+
+        <div class="search-similar-form">
+            <h2>Selecciona una moto base</h2>
+            <form id="searchForm">
+                <div class="form-group">
+                    <label><i class="fas fa-motorcycle"></i> Moto Base</label>
+                    <select id="baseMotorcycle" class="form-control">
+                        <option value="">Seleccionar...</option>
+                        <option th:each="moto : ${allMotorcycles}" 
+                                th:value="${moto.id}" 
+                                th:text="${moto.make + ' ' + moto.model + ' (' + moto.year + ')'}">
+                        </option>
+                    </select>
+                </div>
+                
+                <button type="button" onclick="searchSimilar()" class="btn-search-similar">
+                    <i class="fas fa-search"></i> Buscar Similares
+                </button>
+            </form>
+        </div>
+
+        <!-- Moto base -->
+        <div class="section-content" th:if="${baseMotorcycle != null}">
+            <h2>Moto Base</h2>
+            <div class="favorite-item">
+                <div class="favorite-image">
+                    <img th:src="${baseMotorcycle.imageUrl}" th:alt="${baseMotorcycle.make + ' ' + baseMotorcycle.model}">
+                </div>
+                <div class="favorite-info">
+                    <h3 th:text="${baseMotorcycle.make + ' ' + baseMotorcycle.model}"></h3>
+                    <div class="favorite-details">
+                        <span><i class="fas fa-calendar"></i> <span th:text="${baseMotorcycle.year}"></span></span>
+                        <span><i class="fas fa-tag"></i> <span th:text="${baseMotorcycle.category}"></span></span>
+                        <span><i class="fas fa-tachometer-alt"></i> <span th:text="${baseMotorcycle.engineSize + ' cc'}"></span></span>
+                        <span><i class="fas fa-horse-head"></i> <span th:text="${baseMotorcycle.power + ' HP'}"></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultados similares -->
+        <div class="section-content" th:if="${similarMotorcycles != null and !similarMotorcycles.isEmpty()}">
+            <h2>Motos Similares Encontradas (<span th:text="${similarMotorcycles.size()}"></span>)</h2>
+            <div class="similar-results">
+                <div th:each="moto : ${similarMotorcycles}" class="similar-item">
+                    <div class="favorite-image">
+                        <img th:src="${moto.imageUrl}" th:alt="${moto.make + ' ' + moto.model}">
+                    </div>
+                    <div class="favorite-info">
+                        <h3 th:text="${moto.make + ' ' + moto.model}"></h3>
+                        <div class="favorite-details">
+                            <span><i class="fas fa-calendar"></i> <span th:text="${moto.year}"></span></span>
+                            <span><i class="fas fa-tag"></i> <span th:text="${moto.category}"></span></span>
+                            <span><i class="fas fa-tachometer-alt"></i> <span th:text="${moto.engineSize + ' cc'}"></span></span>
+                            <span><i class="fas fa-horse-head"></i> <span th:text="${moto.power + ' HP'}"></span></span>
+                        </div>
+                        <div class="favorite-actions">
+                            <a th:href="@{/compare(ids=${baseMotorcycle.id + ',' + moto.id})}" class="btn-primary">
+                                <i class="fas fa-balance-scale"></i> Comparar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-state" th:if="${baseMotorcycle == null}">
+            <i class="fas fa-search"></i>
+            <h2>Busca motos similares</h2>
+            <p>Selecciona una moto base para encontrar modelos con características similares</p>
+        </div>
+
+        <div class="empty-state" th:if="${baseMotorcycle != null and (similarMotorcycles == null or similarMotorcycles.isEmpty())}">
+            <i class="fas fa-exclamation-circle"></i>
+            <h2>No se encontraron motos similares</h2>
+            <p>Intenta con otra moto base</p>
+        </div>
+    </div>
+
+    <script>
+        function searchSimilar() {
+            const baseId = document.getElementById('baseMotorcycle').value;
+            
+            if (!baseId) {
+                alert('Por favor selecciona una moto base');
+                return;
+            }
+            
+            window.location.href = `/search-similar?baseMotorcycleId=${baseId}`;
+        }
+    </script>
+</body>
+</html>

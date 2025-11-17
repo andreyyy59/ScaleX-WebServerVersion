@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <header th:fragment="header" class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a th:href="@{/home}">
+                        <h1>ScaleX</h1>
+                    </a>
+                </div>
+                
+                <nav class="main-nav">
+                    <a th:href="@{/home}">
+                        <i class="fas fa-home"></i> Inicio
+                    </a>
+                    <a th:href="@{/compare}">
+                        <i class="fas fa-balance-scale"></i> Comparar
+                    </a>
+                    <a th:href="@{/favorites}">
+                        <i class="fas fa-heart"></i> Favoritos
+                    </a>
+                    <a th:href="@{/search-similar}">
+                        <i class="fas fa-search"></i> Buscar Similares
+                    </a>
+                </nav>
+                
+                <div class="user-menu">
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <button type="submit" class="btn-logout">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+</html>
