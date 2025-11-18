@@ -27,35 +27,46 @@ public class DataInitializer {
     @PostConstruct
     @Transactional
     public void init() {
-        System.out.println("🚀 Iniciando DataInitializer...");
+        System.out.println("========================================");
+        System.out.println("🚀 INICIANDO DATA INITIALIZER");
+        System.out.println("========================================");
+        
         createTestUser();
         createTestMotorcycles();
-        System.out.println("✅ DataInitializer completado");
+        
+        System.out.println("========================================");
+        System.out.println("✅ DATA INITIALIZER COMPLETADO");
+        System.out.println("========================================");
     }
 
     private void createTestUser() {
-        System.out.println("⏳ Verificando usuario admin...");
-        if (!userRepository.existsByUsername("admin")) {
-            User user = new User();
-            user.setUsername("admin");
-            user.setEmail("admin@test.com");
-            user.setPassword(passwordEncoder.encode("admin123"));
-            userRepository.save(user);
-            System.out.println("✅ Usuario creado: admin / admin123");
-        } else {
-            System.out.println("ℹ️ Usuario admin ya existe");
+        System.out.println("\n👤 Verificando usuario admin...");
+        try {
+            if (!userRepository.existsByUsername("admin")) {
+                User user = new User();
+                user.setUsername("admin");
+                user.setEmail("admin@test.com");
+                user.setPassword(passwordEncoder.encode("admin123"));
+                userRepository.save(user);
+                System.out.println("✅ Usuario creado: admin / admin123");
+            } else {
+                System.out.println("ℹ️ Usuario admin ya existe");
+            }
+        } catch (Exception e) {
+            System.err.println("❌ Error al crear usuario: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     private void createTestMotorcycles() {
-        System.out.println("⏳ Verificando motos...");
-        long count = motorcycleRepository.count();
-        System.out.println("📊 Motos actuales en BD: " + count);
+        System.out.println("\n🏍️ Verificando motos...");
+        try {
+            long count = motorcycleRepository.count();
+            System.out.println("📊 Motos actuales en BD: " + count);
 
-        if (count == 0) {
-            System.out.println("🏍️ Creando 10 motos de prueba...");
+            if (count == 0) {
+                System.out.println("🏗️ Creando 10 motos de prueba...\n");
 
-            try {
                 createMotorcycle("Yamaha", "YZF-R1", 2023, "Deportiva", 998, 200, "1e3c72");
                 createMotorcycle("Honda", "CBR1000RR", 2023, "Deportiva", 999, 189, "dc2626");
                 createMotorcycle("Kawasaki", "Ninja ZX-10R", 2023, "Deportiva", 998, 203, "16a34a");
@@ -68,28 +79,32 @@ public class DataInitializer {
                 createMotorcycle("Honda", "Africa Twin", 2023, "Adventure", 1084, 102, "dc2626");
 
                 long finalCount = motorcycleRepository.count();
-                System.out.println("🎉 Total de motos creadas: " + finalCount);
-            } catch (Exception e) {
-                System.err.println("❌ Error al crear motos: " + e.getMessage());
-                e.printStackTrace();
+                System.out.println("\n🎉 TOTAL DE MOTOS CREADAS: " + finalCount);
+            } else {
+                System.out.println("ℹ️ Ya existen " + count + " motos en la BD");
             }
-        } else {
-            System.out.println("ℹ️ Ya existen " + count + " motos en la BD");
+        } catch (Exception e) {
+            System.err.println("❌ ERROR CRÍTICO al crear motos: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     private void createMotorcycle(String make, String model, int year, String category, 
                                  int engineSize, int power, String color) {
-        Motorcycle m = new Motorcycle();
-        m.setMake(make);
-        m.setModel(model);
-        m.setYear(year);
-        m.setCategory(category);
-        m.setEngineSize(engineSize);
-        m.setPower(power);
-        m.setImageUrl("https://via.placeholder.com/400x300/" + color + "/ffffff?text=" + 
-                     make.replace(" ", "+") + "+" + model.replace(" ", "+"));
-        motorcycleRepository.save(m);
-        System.out.println("  ✅ " + make + " " + model);
+        try {
+            Motorcycle m = new Motorcycle();
+            m.setMake(make);
+            m.setModel(model);
+            m.setYear(year);
+            m.setCategory(category);
+            m.setEngineSize(engineSize);
+            m.setPower(power);
+            m.setImageUrl("https://via.placeholder.com/400x300/" + color + "/ffffff?text=" + 
+                         make.replace(" ", "+") + "+" + model.replace(" ", "+"));
+            motorcycleRepository.save(m);
+            System.out.println("  ✅ " + make + " " + model + " guardada");
+        } catch (Exception e) {
+            System.err.println("  ❌ Error al crear " + make + " " + model + ": " + e.getMessage());
+        }
     }
 }
