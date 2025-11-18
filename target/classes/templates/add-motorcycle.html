@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Moto - SeabR</title>
+    <link th:href="@{/css/home.css}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="form-container">
+                <h1><i class="fas fa-motorcycle"></i> Agregar Nueva Moto</h1>
+                
+                <div th:if="${success}" class="alert alert-success">
+                    <i class="fas fa-check-circle"></i>
+                    <span th:text="${success}"></span>
+                </div>
+                <div th:if="${error}" class="alert alert-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span th:text="${error}"></span>
+                </div>
+
+                <form th:action="@{/form-motorcycles/add}" method="post" class="motorcycle-form">
+                    <div class="form-grid">
+                        <!-- make (marca) -->
+                        <div class="form-group">
+                            <label for="make"><i class="fas fa-tag"></i> Marca *</label>
+                            <input type="text" id="make" name="make" required 
+                                   placeholder="Ej: Honda, Yamaha, Kawasaki">
+                        </div>
+
+                        <!-- model (modelo) -->
+                        <div class="form-group">
+                            <label for="model"><i class="fas fa-cube"></i> Modelo *</label>
+                            <input type="text" id="model" name="model" required 
+                                   placeholder="Ej: CBR 600RR, MT-07">
+                        </div>
+
+                        <!-- year (año) -->
+                        <div class="form-group">
+                            <label for="year"><i class="fas fa-calendar-alt"></i> Año *</label>
+                            <input type="number" id="year" name="year" 
+                                   min="1900" max="2030" required 
+                                   placeholder="2023">
+                        </div>
+
+                        <!-- category (categoría) -->
+                        <div class="form-group">
+                            <label for="category"><i class="fas fa-list"></i> Categoría *</label>
+                            <select id="category" name="category" required>
+                                <option value="">Seleccionar categoría</option>
+                                <option value="Deportiva">Deportiva</option>
+                                <option value="Naked">Naked</option>
+                                <option value="Adventure">Adventure</option>
+                                <option value="Cruiser">Cruiser</option>
+                                <option value="Scooter">Scooter</option>
+                                <option value="Touring">Touring</option>
+                                <option value="Street">Street</option>
+                                <option value="Sport">Sport</option>
+                                <option value="Commuter">Commuter</option>
+                            </select>
+                        </div>
+
+                        <!-- engineSize (cilindrada) -->
+                        <div class="form-group">
+                            <label for="engineSize"><i class="fas fa-tachometer-alt"></i> Cilindrada (cc) *</label>
+                            <input type="number" id="engineSize" name="engineSize" 
+                                   min="50" max="3000" required 
+                                   placeholder="Ej: 600">
+                        </div>
+
+                        <!-- power (potencia) -->
+                        <div class="form-group">
+                            <label for="power"><i class="fas fa-horse-head"></i> Potencia (HP) *</label>
+                            <input type="number" id="power" name="power" 
+                                   min="1" max="500" required 
+                                   placeholder="Ej: 120">
+                        </div>
+
+                        <!-- imageUrl (imagen) -->
+                        <div class="form-group full-width">
+                            <label for="imageUrl"><i class="fas fa-image"></i> Ruta de imagen (Opcional)</label>
+                            <input type="text" id="imageUrl" name="imageUrl" 
+                                   placeholder="/images/motorcycles/nombre-imagen.jpg">
+                            <small>Ej: /images/motorcycles/honda_cbr600rr.jpg</small>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-plus-circle"></i>
+                            Agregar Moto
+                        </button>
+                        <a th:href="@{/home}" class="btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.querySelector('.motorcycle-form').addEventListener('submit', function(e) {
+            const requiredFields = this.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = '#ef4444';
+                } else {
+                    field.style.borderColor = '';
+                }
+            });
+
+            if (!isValid) {
+                e.preventDefault();
+                alert('Por favor, completa todos los campos obligatorios (*)');
+            }
+        });
+    </script>
+</body>
+</html>
