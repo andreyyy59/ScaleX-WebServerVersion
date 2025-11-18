@@ -16,6 +16,14 @@
                 <h1>COMPARA ESPECIFICACIONES DE MOTOS</h1>
                 <p>Encuentra la moto perfecta comparando especificaciones, tamaños y características técnicas</p>
                 
+                <!-- Botón para agregar moto -->
+                <div class="hero-actions">
+                    <a th:href="@{/form-motorcycles/add}" class="btn-add-motorcycle">
+                        <i class="fas fa-plus"></i>
+                        Agregar Moto
+                    </a>
+                </div>
+                
                 <div class="search-bar">
                     <input type="text" id="searchInput" placeholder="Buscar motos por marca, modelo o categoría...">
                     <button id="searchBtn" class="btn-search">
@@ -27,7 +35,14 @@
 
         <section class="motorcycles-section">
             <div class="container">
-                <h2>Motos Disponibles</h2>
+                <div class="section-header">
+                    <h2>Motos Disponibles</h2>
+                    <!-- Botón secundario para agregar moto -->
+                    <a th:href="@{/add-motorcycle}" class="btn-add-motorcycle secondary">
+                        <i class="fas fa-plus"></i>
+                        Agregar Nueva Moto
+                    </a>
+                </div>
                 
                 <div class="filters">
                     <select id="categoryFilter">
